@@ -8,7 +8,13 @@
     "start": "next start",
     "lint": "next lint --fix",
     "prettier": "npx prettier --write ./src/",
-    "prettier:check": "npx prettier --check ./src/"
+    "prettier:check": "npx prettier --check ./src/",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "next": "13.3.0",
@@ -27,6 +33,8 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-unicorn": "46.0.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.1",
     "postcss": "8.4.22",
     "prettier": "2.8.7",
     "prettier-plugin-tailwindcss": "0.2.7",
