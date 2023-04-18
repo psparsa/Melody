@@ -1,5 +1,5 @@
 import Axios, { isAxiosError, InternalAxiosRequestConfig } from 'axios';
-import Cookies from 'js-cookie';
+import { getCookie } from 'cookies-next';
 import { toast } from 'react-toastify';
 
 const baseURL = `${process.env.NEXT_PUBLIC_API_PROTOCOL}://${process.env.NEXT_PUBLIC_API_HOSTNAME}:${process.env.NEXT_PUBLIC_API_PORT}`;
@@ -24,7 +24,7 @@ const requestMiddleware = (
   request: InternalAxiosRequestConfig<unknown>
 ): InternalAxiosRequestConfig<unknown> => {
   if (typeof window !== 'undefined') {
-    const token = Cookies.get('token');
+    const token = getCookie('token');
     if (token) request.headers.Authorization = `Bearer ${token}`;
   }
 
