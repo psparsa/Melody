@@ -7,13 +7,14 @@ export const Client = Axios.create({
 });
 
 const errorHandler = (error: unknown) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window !== 'undefined')
+    if (isAxiosError(error)) {
+      const apiErrorMessage = error.response?.data?.result[0]?.message;
+      if (apiErrorMessage) toast.error(apiErrorMessage);
+      else toast.error(error.message);
+    } else toast.error('An unexpected error occurred');
 
-  if (isAxiosError(error)) {
-    const apiErrorMessage = error.response?.data?.result[0]?.message;
-    if (apiErrorMessage) toast.error(apiErrorMessage);
-    else toast.error(error.message);
-  } else toast.error('An unexpected error occurred');
+  return Promise.reject(error);
 };
 
 Client.interceptors.response.use((response) => response, errorHandler);
