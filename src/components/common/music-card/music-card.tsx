@@ -1,0 +1,34 @@
+import { Button } from '../button';
+
+export interface MusicCardProperties {
+  title: string;
+  artist: string;
+  album: string;
+  fileLink: string;
+  fileFormat: string;
+}
+
+export const MusicCard = ({
+  title,
+  artist,
+  album,
+  fileLink,
+  fileFormat,
+}: MusicCardProperties) => {
+  return (
+    <div className="flex h-36 w-80 flex-col items-center justify-center rounded-md bg-snow p-2 shadow-md shadow-gray-800">
+      <div className="w-full truncate text-center text-lg font-semibold">
+        {title} by {artist}
+      </div>
+      <div className="mt-1 w-full truncate text-center  font-light">
+        {album}
+      </div>
+
+      <div className="mt-4 w-full">
+        <Button variant="dark" fluid>
+          Download
+        </Button>
+      </div>
+    </div>
+  );
+};
