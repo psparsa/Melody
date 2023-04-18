@@ -14,6 +14,13 @@ export const useAuth = () => {
     void router.replace('/');
   };
 
+  const logoutUser = () => {
+    Cookies.remove('token');
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    setToken(undefined);
+    void router.replace('/login');
+  };
+
   React.useEffect(() => {
     const updateToken = () => setToken(Cookies.get('token'));
 
@@ -24,5 +31,6 @@ export const useAuth = () => {
   return {
     isAuthenticated,
     loginUser,
+    logoutUser,
   };
 };
