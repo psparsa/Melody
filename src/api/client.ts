@@ -1,4 +1,5 @@
-import Axios, { isAxiosError } from 'axios';
+import Axios, { isAxiosError, InternalAxiosRequestConfig } from 'axios';
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
 const baseURL = `${process.env.NEXT_PUBLIC_API_PROTOCOL}://${process.env.NEXT_PUBLIC_API_HOSTNAME}:${process.env.NEXT_PUBLIC_API_PORT}`;
@@ -18,3 +19,16 @@ const errorHandler = (error: unknown) => {
 };
 
 Client.interceptors.response.use((response) => response, errorHandler);
+
+const requestMiddleware = (
+  request: InternalAxiosRequestConfig<unknown>
+): InternalAxiosRequestConfig<unknown> => {
+  if (typeof window !== 'undefined') {
+    const token = Cookies.get('token');
+    if (token) request.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return request;
+};
+
+Client.interceptors.request.use(requestMiddleware);
