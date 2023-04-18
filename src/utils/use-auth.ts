@@ -8,8 +8,8 @@ export const useAuth = () => {
 
   const isAuthenticated = !!token;
 
-  const loginUser = ({ token }: { token: string }) => {
-    Cookies.set('token', token);
+  const loginUser = ({ token, expires }: { token: string; expires: Date }) => {
+    Cookies.set('token', token, { expires });
     setToken(token);
     void router.replace('/');
   };
