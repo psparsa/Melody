@@ -47,7 +47,6 @@ export const Search = ({
         onClick={() => {
           if (onSearch) onSearch(value);
         }}
-        disabled={value.length === 0}
       >
         <AiOutlineSearch size={32} />
       </button>
