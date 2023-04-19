@@ -20,6 +20,7 @@ import {
 } from '@/api/services/get-playlists';
 import { TbPlaylistOff } from 'react-icons/tb';
 import Link from 'next/link';
+import { PlayList } from '@/components/common/playlist';
 
 const roboto = Roboto({ weight: ['300', '400', '500'], subsets: ['latin'] });
 
@@ -123,7 +124,7 @@ export default function HomePage({
             </div>
             <div className="flex w-full flex-col items-start px-12">
               <div className="mb-2 text-lg text-snow">Your Playlists:</div>
-              <div className="w-full rounded-md border border-solid border-snow px-2 py-4">
+              <div className="w-full rounded-md border border-solid border-snow p-4">
                 {noPlayLists ? (
                   <div className="my-8 flex flex-col items-center text-snow">
                     <TbPlaylistOff size={50} />
@@ -137,7 +138,16 @@ export default function HomePage({
                     </Link>
                   </div>
                 ) : (
-                  <div>Coming Soon!</div>
+                  <div className="flex w-full flex-wrap justify-center">
+                    {playlists.result.items?.map((item) => (
+                      <PlayList
+                        key={item.id}
+                        title={item.title}
+                        coverSrc={item.cover}
+                        containerClassName="m-2"
+                      />
+                    ))}
+                  </div>
                 )}
               </div>
             </div>
