@@ -37,7 +37,7 @@ export default function NewPlaylistPage() {
           value={title}
           onChange={(value) => setTitle(value.target.value)}
         />
-        <div className="mt-8 w-44">
+        <div className="mt-8 w-60">
           <Button
             fluid
             variant="dark"
