@@ -12,7 +12,7 @@ export interface MusicCardProperties {
   album: string;
   fileId: number;
   fileFormat: string;
-  playLists: { title: string; id: number }[];
+  playLists?: { title: string; id: number }[];
   loading?: boolean;
 }
 
@@ -54,30 +54,32 @@ export const MusicCard = ({
             Download
           </Button>
         </div>
-        <Popover
-          isOpen={isPopoverOpen}
-          positions={['top', 'bottom']}
-          content={
-            <div className="mb-2 h-40 w-20 overflow-scroll rounded-lg bg-gray-700 p-1 shadow-2xl">
-              {playLists.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex w-full cursor-pointer justify-center truncate border-b pb-1 font-bold text-snow hover:text-coralRed"
-                  onClick={() => handleAddingToPlaylist(item.id, item.title)}
-                >
-                  {item.title}
-                </div>
-              ))}
-            </div>
-          }
-        >
-          <div
-            className="ml-3 flex h-full w-12 cursor-pointer items-center justify-center rounded-xl bg-coralRed text-snow"
-            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+        {!!playLists && playLists.length > 0 && (
+          <Popover
+            isOpen={isPopoverOpen}
+            positions={['top', 'bottom']}
+            content={
+              <div className="mb-2 h-40 w-20 overflow-scroll rounded-lg bg-gray-700 p-1 shadow-2xl">
+                {playLists.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex w-full cursor-pointer justify-center truncate border-b pb-1 font-bold text-snow hover:text-coralRed"
+                    onClick={() => handleAddingToPlaylist(item.id, item.title)}
+                  >
+                    {item.title}
+                  </div>
+                ))}
+              </div>
+            }
           >
-            <AiOutlinePlus size={30} />
-          </div>
-        </Popover>
+            <div
+              className="ml-3 flex h-full w-12 cursor-pointer items-center justify-center rounded-xl bg-coralRed text-snow"
+              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+            >
+              <AiOutlinePlus size={30} />
+            </div>
+          </Popover>
+        )}
       </div>
     </div>
   );
