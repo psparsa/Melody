@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { Client } from '../';
 import { z } from 'zod';
 
@@ -17,10 +18,10 @@ export const SongsSchema = z.object({
       })
     ),
     _links: z.object({
-      self: z.object({ href: z.string() }),
-      first: z.object({ href: z.string() }),
-      last: z.object({ href: z.string() }),
-      next: z.object({ href: z.string() }),
+      self: z.object({ href: z.string() }).optional(),
+      first: z.object({ href: z.string() }).optional(),
+      last: z.object({ href: z.string() }).optional(),
+      next: z.object({ href: z.string() }).optional(),
     }),
     _meta: z.object({
       totalCount: z.number(),
@@ -34,23 +35,50 @@ export const SongsSchema = z.object({
 export type SongsResponse = z.infer<typeof SongsSchema>;
 
 interface GetSongsProperties {
+  page: number;
+  pageSize: number;
   query?: string;
-  page?: number;
-  perPageItems?: number;
+  token?: string;
 }
 
 export const getSongs = async ({
-  query,
   page,
-  perPageItems,
+  pageSize,
+  query,
+  token,
 }: GetSongsProperties) => {
   const { data } = await Client.get<SongsResponse>('/song', {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : undefined),
+    },
     params: {
       'filter[title][like]': query,
-      'per-page': perPageItems,
+      'per-page': pageSize,
       page: page,
     },
   });
 
   return SongsSchema.parse(data);
 };
+
+interface UseGetSongs {
+  initialData: SongsResponse;
+  page: number;
+  pageSize: number;
+  query: string;
+  onSettled?: (data: SongsResponse | undefined, error: unknown) => void;
+}
+
+export const useGetSongs = ({
+  pageSize,
+  page,
+  query,
+  initialData,
+  onSettled,
+}: UseGetSongs) =>
+  useQuery({
+    queryKey: ['songs', page, query],
+    queryFn: () => getSongs({ page, pageSize, query }),
+    initialData,
+    onSettled,
+  });

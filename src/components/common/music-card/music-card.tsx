@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import { Button } from '../button';
 
 export interface MusicCardProperties {
@@ -6,6 +7,7 @@ export interface MusicCardProperties {
   album: string;
   fileLink: string;
   fileFormat: string;
+  loading?: boolean;
 }
 
 export const MusicCard = ({
@@ -14,9 +16,15 @@ export const MusicCard = ({
   album,
   fileLink,
   fileFormat,
+  loading,
 }: MusicCardProperties) => {
   return (
-    <div className="flex h-36 w-80 flex-col items-center justify-center rounded-md bg-snow p-2 shadow-md shadow-gray-800">
+    <div
+      className={twMerge(
+        'flex h-36 w-80 flex-col items-center justify-center rounded-md bg-snow p-2 shadow-md shadow-gray-800',
+        loading ? 'blur-md' : undefined
+      )}
+    >
       <div className="w-full truncate text-center text-lg font-semibold">
         {title} by {artist}
       </div>

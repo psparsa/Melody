@@ -1,5 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
-// import { LoginForm } from '@/components/common';
 import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import React from 'react';
@@ -8,7 +6,7 @@ import { LoginForm } from '@/components/common/login-form';
 
 const roboto = Roboto({ weight: ['300', '400', '500'], subsets: ['latin'] });
 
-const LoginPage = () => {
+export default function LoginPage() {
   return (
     <>
       <Head>
@@ -25,6 +23,4 @@ const LoginPage = () => {
       </main>
     </>
   );
-};
-
-export default LoginPage;
+}
