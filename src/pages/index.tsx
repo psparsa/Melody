@@ -13,11 +13,7 @@ import { Pagination } from '@/components/common/pagination';
 import { NoResultCard } from '@/components/common/no-result-card';
 import { useQueryClient } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
-import {
-  PlayListsResponse,
-  getPlayLists,
-  useGetPlaylists,
-} from '@/api/services/get-playlists';
+import { PlayListsResponse, getPlayLists, useGetPlaylists } from '@/api';
 import { TbPlaylistOff } from 'react-icons/tb';
 import Link from 'next/link';
 import { PlayList } from '@/components/common/playlist';

@@ -1,4 +1,4 @@
-import { Client } from '../';
+import { Client } from '..';
 import { PlayListResponse, PlayListSchema } from './create-playlist';
 
 export interface AddToPlaylistProperties {

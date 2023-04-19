@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Pagination } from './pagination';
+import { Pagination } from '.';
 
 export default {
   title: 'Pagination',

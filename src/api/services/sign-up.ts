@@ -1,4 +1,4 @@
-import { Client } from '../';
+import { Client } from '..';
 import { z } from 'zod';
 
 export const SignUpSchema = z.object({

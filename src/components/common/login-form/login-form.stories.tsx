@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LoginForm } from './';
+import { LoginForm } from '.';
 
 export default {
   title: 'LoginForm',

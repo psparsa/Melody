@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Client } from '../';
+import { Client } from '..';
 import { z } from 'zod';
 
 export const SongsSchema = z.object({

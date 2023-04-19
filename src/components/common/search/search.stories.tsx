@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Search } from './search';
+import { Search } from '.';
 
 export default {
   title: 'Search',

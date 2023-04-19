@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ImageInput } from './image-input';
+import { ImageInput } from '.';
 
 export default {
   title: 'ImageInput',

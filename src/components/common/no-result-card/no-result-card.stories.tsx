@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { NoResultCard } from './';
+import { NoResultCard } from '.';
 
 export default {
   title: 'No Result Card',

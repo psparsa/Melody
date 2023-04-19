@@ -3,7 +3,7 @@ import { Button } from '../button';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Popover } from 'react-tiny-popover';
 import React from 'react';
-import { addToPlayList } from '@/api/services/add-to-playlist';
+import { addToPlayList } from '@/api';
 import { toast } from 'react-toastify';
 
 export interface MusicCardProperties {

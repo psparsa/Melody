@@ -1,4 +1,4 @@
-import { useCreatePlayList } from '@/api/services/create-playlist';
+import { useCreatePlayList } from '@/api';
 import { Button } from '@/components/common/button';
 import { ImageInput } from '@/components/common/image-input';
 import { Input } from '@/components/common/input';
