@@ -123,7 +123,15 @@ export default function HomePage({
               </div>
             </div>
             <div className="flex w-full flex-col items-start px-12">
-              <div className="mb-2 text-lg text-snow">Your Playlists:</div>
+              <div className="mb-2 flex w-full flex-wrap justify-between text-lg text-snow">
+                <p className="mr-12">Your Playlists</p>
+
+                <Link href="/new-playlist">
+                  <p className="inline underline opacity-75 transition-all hover:opacity-100">
+                    Click here to create a new playlist
+                  </p>
+                </Link>
+              </div>
               <div className="w-full rounded-md border border-solid border-snow p-4">
                 {noPlayLists ? (
                   <div className="my-8 flex flex-col items-center text-snow">
@@ -139,11 +147,12 @@ export default function HomePage({
                   </div>
                 ) : (
                   <div className="flex w-full flex-wrap justify-center">
-                    {playlists.result.items?.map((item) => (
+                    {playlists.result.items.map((item) => (
                       <PlayList
                         key={item.id}
                         title={item.title}
                         coverSrc={item.cover}
+                        tracksCount={item.songs.length}
                         containerClassName="m-2"
                       />
                     ))}
@@ -165,6 +174,10 @@ export default function HomePage({
                     album={song.album_name}
                     fileId={song.id}
                     fileFormat={song.format}
+                    playLists={playlists.result.items.map((item) => ({
+                      title: item.title,
+                      id: item.id,
+                    }))}
                     loading={isLoading}
                   />
                 </div>

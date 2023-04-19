@@ -4,12 +4,14 @@ import { twMerge } from 'tailwind-merge';
 export interface PlayListProperties {
   title: string;
   coverSrc: string;
+  tracksCount: number;
   containerClassName?: string;
 }
 
 export const PlayList = ({
   title,
   coverSrc,
+  tracksCount,
   containerClassName,
 }: PlayListProperties) => {
   return (
@@ -22,7 +24,10 @@ export const PlayList = ({
       <div className="relative h-56 w-56 overflow-hidden rounded-md bg-taupeGray">
         <Image src={coverSrc} alt={title} style={{ objectFit: 'cover' }} fill />
       </div>
-      <div className="mt-4 flex w-full justify-center truncate text-lg">
+      <div className="mt-1 w-full font-extralight">
+        Tracks Count: {tracksCount}
+      </div>
+      <div className="mt-2 flex w-full justify-center truncate text-xl">
         {title}
       </div>
     </div>

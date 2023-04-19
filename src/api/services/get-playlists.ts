@@ -5,16 +5,15 @@ import { z } from 'zod';
 export const PlayListsSchema = z.object({
   ok: z.boolean(),
   result: z.object({
-    items: z
-      .array(
-        z.object({
-          id: z.number(),
-          title: z.string(),
-          cover: z.string(),
-          created_at: z.string(),
-        })
-      )
-      .optional(),
+    items: z.array(
+      z.object({
+        id: z.number(),
+        title: z.string(),
+        cover: z.string(),
+        created_at: z.string(),
+        songs: z.array(z.unknown()),
+      })
+    ),
     _links: z.object({
       self: z.object({ href: z.string() }),
       first: z.object({ href: z.string() }).optional(),
