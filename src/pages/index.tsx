@@ -130,7 +130,7 @@ export default function HomePage({
                     <div className="mt-6 text-center text-lg">
                       looks like you don&apos;t have any playlists...
                     </div>
-                    <Link href="#">
+                    <Link href="/new-playlist">
                       <div className="text-md mt-2 text-center underline">
                         Click here to create your first playlist
                       </div>
