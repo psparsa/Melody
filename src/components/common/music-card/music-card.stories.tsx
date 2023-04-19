@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { MusicCard } from './';
+import { MusicCard } from '.';
 
 export default {
   title: 'Music Card',

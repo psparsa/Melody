@@ -13,6 +13,14 @@ import { Pagination } from '@/components/common/pagination';
 import { NoResultCard } from '@/components/common/no-result-card';
 import { useQueryClient } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
+import {
+  PlayListsResponse,
+  getPlayLists,
+  useGetPlaylists,
+} from '@/api/services/get-playlists';
+import { TbPlaylistOff } from 'react-icons/tb';
+import Link from 'next/link';
+import { PlayList } from '@/components/common/playlist';
 
 const roboto = Roboto({ weight: ['300', '400', '500'], subsets: ['latin'] });
 
@@ -21,6 +29,7 @@ const PAGE_SIZE = 25;
 
 interface HomePageProperties {
   initialSongsData: SongsResponse;
+  initialPlaylistsData: PlayListsResponse;
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -35,9 +44,12 @@ export const getServerSideProps: GetServerSideProps<
       token,
     });
 
+    const playlists = await getPlayLists({ token });
+
     return {
       props: {
         initialSongsData: songs,
+        initialPlaylistsData: playlists,
       },
     };
   } catch (error) {
@@ -52,7 +64,10 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-export default function HomePage({ initialSongsData }: HomePageProperties) {
+export default function HomePage({
+  initialSongsData,
+  initialPlaylistsData,
+}: HomePageProperties) {
   const [page, setPage] = React.useState(DEFAULT_PAGE);
   const [keyword, setKeyword] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
@@ -65,7 +80,14 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
     onSettled: () => setIsLoading(false),
   });
 
+  const { data: playlists } = useGetPlaylists({
+    initialData: initialPlaylistsData,
+  });
+
   const noResult = songs.result.items.length === 0;
+  const noPlayLists = playlists.result.items
+    ? playlists.result.items?.length === 0
+    : true;
 
   const handleSearch = (q: string) => {
     setPage(1);
@@ -93,13 +115,53 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
         <div className="flex min-h-screen w-screen flex-col items-center">
           <div className="my-24 flex w-screen flex-col items-center">
             <div className="flex select-none flex-col items-center">
-              <div className="text-8xl font-light text-coralRed">Melody</div>
-              <div className="mt-3 text-2xl text-begonia">
+              <div className="text-6xl font-light text-coralRed md:text-8xl">
+                Melody
+              </div>
+              <div className="mb-6 mt-3 text-center text-xl text-begonia md:mb-2 md:text-2xl">
                 Unleash your inner groove with our beats
               </div>
             </div>
-            <Search containerClassName="mt-8" onSearch={handleSearch} />
+            <div className="flex w-full flex-col items-start px-12">
+              <div className="mb-2 flex w-full flex-wrap justify-between text-lg text-snow">
+                <p className="mr-12">Your Playlists</p>
+
+                <Link href="/new-playlist">
+                  <p className="inline underline opacity-75 transition-all hover:opacity-100">
+                    Click here to create a new playlist
+                  </p>
+                </Link>
+              </div>
+              <div className="w-full rounded-md border border-solid border-snow p-4">
+                {noPlayLists ? (
+                  <div className="my-8 flex flex-col items-center text-snow">
+                    <TbPlaylistOff size={50} />
+                    <div className="mt-6 text-center text-lg">
+                      looks like you don&apos;t have any playlists...
+                    </div>
+                    <Link href="/new-playlist">
+                      <div className="text-md mt-2 text-center underline">
+                        Click here to create your first playlist
+                      </div>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="flex w-full flex-wrap justify-center">
+                    {playlists.result.items.map((item) => (
+                      <PlayList
+                        key={item.id}
+                        title={item.title}
+                        coverSrc={item.cover}
+                        tracksCount={item.songs.length}
+                        containerClassName="m-2"
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
+          <Search containerClassName="my-8" onSearch={handleSearch} />
           <div className="flex flex-wrap items-center justify-center px-8">
             {noResult ? (
               <NoResultCard />
@@ -112,6 +174,10 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
                     album={song.album_name}
                     fileId={song.id}
                     fileFormat={song.format}
+                    playLists={playlists.result.items.map((item) => ({
+                      title: item.title,
+                      id: item.id,
+                    }))}
                     loading={isLoading}
                   />
                 </div>
