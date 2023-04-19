@@ -1,6 +1,6 @@
 ![Banner](https://user-images.githubusercontent.com/57572461/233194046-3db160ca-de1c-4b29-ba17-879205613165.png)
 
-### System requirment:
+### System requirments:
 - RAM: < 1gb
 - Node.js: <= 16.20
 
