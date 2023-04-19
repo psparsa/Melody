@@ -12,6 +12,7 @@ import React from 'react';
 import { Pagination } from '@/components/common/pagination';
 import { NoResultCard } from '@/components/common/no-result-card';
 import { useQueryClient } from '@tanstack/react-query';
+import { useDebouncedCallback } from 'use-debounce';
 
 const roboto = Roboto({ weight: ['300', '400', '500'], subsets: ['latin'] });
 
@@ -71,11 +72,11 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
     setKeyword(q);
   };
 
-  const handleChangingPage = (p: number) => {
+  const handleChangingPage = useDebouncedCallback((p: number) => {
     setPage(p);
     const isPageInCache = !!queryClient.getQueryData(['songs', p, keyword]);
     setIsLoading(!isPageInCache);
-  };
+  }, 500);
 
   return (
     <>
