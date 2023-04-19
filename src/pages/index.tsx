@@ -76,7 +76,7 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
     setPage(p);
     const isPageInCache = !!queryClient.getQueryData(['songs', p, keyword]);
     setIsLoading(!isPageInCache);
-  }, 500);
+  }, 333);
 
   return (
     <>
@@ -110,7 +110,7 @@ export default function HomePage({ initialSongsData }: HomePageProperties) {
                     title={song.title}
                     artist={song.artist_name}
                     album={song.album_name}
-                    fileLink={song.file}
+                    fileId={song.id}
                     fileFormat={song.format}
                     loading={isLoading}
                   />

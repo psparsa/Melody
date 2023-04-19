@@ -5,7 +5,7 @@ export interface MusicCardProperties {
   title: string;
   artist: string;
   album: string;
-  fileLink: string;
+  fileId: number;
   fileFormat: string;
   loading?: boolean;
 }
@@ -14,7 +14,7 @@ export const MusicCard = ({
   title,
   artist,
   album,
-  fileLink,
+  fileId,
   fileFormat,
   loading,
 }: MusicCardProperties) => {

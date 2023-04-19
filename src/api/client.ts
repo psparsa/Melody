@@ -14,7 +14,7 @@ const errorHandler = (error: unknown) => {
         deleteCookie('token');
         window.location.href = '/login';
       } else {
-        const apiErrorMessage = error.response?.data?.result[0]?.message;
+        const apiErrorMessage = error.response?.data?.result?.[0]?.message;
         if (apiErrorMessage) toast.error(apiErrorMessage);
         else toast.error(error.message);
       }
