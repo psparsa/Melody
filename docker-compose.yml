@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  melody:
+    build:
+      dockerfile: Dockerfile
+      args:
+        - API_PROTOCOL=${NEXT_PUBLIC_API_PROTOCOL}
+        - API_HOSTNAME=${NEXT_PUBLIC_API_HOSTNAME}
+        - API_PORT=${NEXT_PUBLIC_API_PORT}
+    ports:
+      - "3000:3000"
