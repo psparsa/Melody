@@ -114,8 +114,10 @@ export default function HomePage({
         <div className="flex min-h-screen w-screen flex-col items-center">
           <div className="my-24 flex w-screen flex-col items-center">
             <div className="flex select-none flex-col items-center">
-              <div className="text-8xl font-light text-coralRed">Melody</div>
-              <div className="mt-3 text-2xl text-begonia">
+              <div className="text-6xl font-light text-coralRed md:text-8xl">
+                Melody
+              </div>
+              <div className="mb-6 mt-3 text-center text-xl text-begonia md:mb-2 md:text-2xl">
                 Unleash your inner groove with our beats
               </div>
             </div>
@@ -125,11 +127,11 @@ export default function HomePage({
                 {noPlayLists ? (
                   <div className="my-8 flex flex-col items-center text-snow">
                     <TbPlaylistOff size={50} />
-                    <div className="mt-6 text-lg">
+                    <div className="mt-6 text-center text-lg">
                       looks like you don&apos;t have any playlists...
                     </div>
                     <Link href="#">
-                      <div className="text-md mt-2 underline">
+                      <div className="text-md mt-2 text-center underline">
                         Click here to create your first playlist
                       </div>
                     </Link>
